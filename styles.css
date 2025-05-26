@@ -1,23 +1,74 @@
+/* Modern CSS Reset and Variables */
+:root {
+    --primary-color: #2563eb;
+    --secondary-color: #3b82f6;
+    --accent-color: #60a5fa;
+    --text-color: #1f2937;
+    --background-color: #f8fafc;
+    --card-background: #ffffff;
+    --error-color: #ef4444;
+    --success-color: #22c55e;
+    --border-radius: 12px;
+    --transition: all 0.3s ease;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f5f5f5;
+/* Accessibility Focus Styles */
+:focus {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
 }
 
-/* Navegação */
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Skip to Main Content Link */
+.skip-to-main {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: 1em;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+}
+
+.skip-to-main:focus {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Base Styles */
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    font-size: 16px;
+}
+
+/* Modern Navigation */
 .main-nav {
-    background: #2c3e50;
+    background: var(--card-background);
     padding: 1rem;
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: var(--shadow-sm);
 }
 
 .main-nav ul {
@@ -27,26 +78,57 @@ body {
     gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    flex-wrap: wrap;
 }
 
 .main-nav a {
-    color: white;
+    color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    position: relative;
 }
 
-.main-nav a:hover {
-    background-color: rgba(255,255,255,0.1);
+.main-nav a:hover,
+.main-nav a:focus {
+    background-color: var(--primary-color);
+    color: white;
 }
 
+/* Accessibility Menu */
+.accessibility-menu {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    background: var(--card-background);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-md);
+}
+
+.accessibility-menu button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.accessibility-menu button:hover,
+.accessibility-menu button:focus {
+    color: var(--primary-color);
+}
+
+/* Modern Header */
 header {
-    background: linear-gradient(135deg, #4CAF50, #45a049);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     color: white;
     text-align: center;
-    padding: 2rem 1rem;
+    padding: 4rem 1rem;
     margin-bottom: 2rem;
     position: relative;
     overflow: hidden;
@@ -55,6 +137,8 @@ header {
 .header-content {
     position: relative;
     z-index: 2;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .header-image {
@@ -63,7 +147,7 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.2;
+    opacity: 0.1;
     z-index: 1;
 }
 
@@ -74,35 +158,158 @@ header {
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: clamp(2rem, 5vw, 3.5rem);
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    line-height: 1.2;
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 2vw, 1.25rem);
     opacity: 0.9;
 }
 
-main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-
-section {
-    background: white;
-    border-radius: 10px;
+/* Modern Cards */
+.card {
+    background: var(--card-background);
+    border-radius: var(--border-radius);
     padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-h2 {
-    color: #2c3e50;
-    margin-bottom: 1.5rem;
-    font-size: 1.8rem;
-    text-align: center;
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+/* Modern Buttons */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.button:hover,
+.button:focus {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #0000ff;
+        --secondary-color: #0000aa;
+        --text-color: #000000;
+        --background-color: #ffffff;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #60a5fa;
+        --secondary-color: #3b82f6;
+        --text-color: #f8fafc;
+        --background-color: #1f2937;
+        --card-background: #374151;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .header {
+        padding: 2rem 1rem;
+    }
+
+    .card {
+        padding: 1.5rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .main-nav,
+    .accessibility-menu,
+    .button {
+        display: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Error States */
+.error {
+    color: var(--error-color);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    background-color: rgba(239, 68, 68, 0.1);
+    margin: 1rem 0;
+}
+
+/* Success States */
+.success {
+    color: var(--success-color);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    background-color: rgba(34, 197, 94, 0.1);
+    margin: 1rem 0;
 }
 
 /* Seção de Introdução */
@@ -123,27 +330,65 @@ h2 {
     margin-top: 2rem;
 }
 
+/* Key Points Cards */
 .key-point {
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 1.5rem;
-    background: #f8f9fa;
-    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.key-point::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
     transition: transform 0.3s ease;
 }
 
+.key-point:hover::before {
+    transform: scaleX(1);
+}
+
 .key-point:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
 
 .key-point i {
-    font-size: 2rem;
-    color: #4CAF50;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.key-point:hover i {
+    transform: scale(1.1);
 }
 
 .key-point h4 {
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.key-point p {
+    color: var(--text-color);
+    opacity: 0.9;
+    line-height: 1.6;
 }
 
 /* Seção de Dicas */
@@ -153,47 +398,77 @@ h2 {
     gap: 1.5rem;
 }
 
+/* Tip Cards */
 .tip-card {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: center;
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.tip-card:hover::before {
+    transform: scaleX(1);
 }
 
 .tip-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
 
 .tip-icon {
-    font-size: 2rem;
-    color: #4CAF50;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.tip-card:hover .tip-icon {
+    transform: scale(1.1);
 }
 
 .tip-card h3 {
-    color: #4CAF50;
+    color: var(--text-color);
     margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .tip-details {
     list-style: none;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     text-align: left;
 }
 
 .tip-details li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1.75rem;
     position: relative;
+    color: var(--text-color);
+    opacity: 0.9;
 }
 
-.tip-details li:before {
+.tip-details li::before {
     content: "•";
-    color: #4CAF50;
+    color: var(--primary-color);
     position: absolute;
     left: 0;
+    font-size: 1.25rem;
 }
 
 /* Seção de Nutrientes */
@@ -203,46 +478,93 @@ h2 {
     gap: 1.5rem;
 }
 
+/* Nutrient Cards (Proteínas, Carboidratos, Gorduras Boas) */
 .nutrient-card {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+}
+
+.nutrient-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
     transition: transform 0.3s ease;
 }
 
+.nutrient-card:hover::before {
+    transform: scaleX(1);
+}
+
 .nutrient-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
 
 .nutrient-card i {
-    font-size: 2rem;
-    color: #4CAF50;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.nutrient-card:hover i {
+    transform: scale(1.1);
 }
 
 .nutrient-card h3 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .nutrient-card ul {
     list-style: none;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     text-align: left;
+    width: 100%;
 }
 
 .nutrient-card li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1.75rem;
     position: relative;
+    color: var(--text-color);
+    opacity: 0.9;
 }
 
-.nutrient-card li:before {
+.nutrient-card li::before {
     content: "✓";
-    color: #4CAF50;
+    color: var(--primary-color);
     position: absolute;
     left: 0;
+    font-size: 1.1rem;
+}
+
+.nutrient-tip {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-style: italic;
+    width: 100%;
 }
 
 /* Seção de Receitas */
@@ -252,50 +574,82 @@ h2 {
     gap: 1.5rem;
 }
 
+/* Recipe Cards (Café da Manhã, Almoço, Lanche, Jantar) */
 .recipe-card {
-    background: white;
-    border-radius: 8px;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
     overflow: hidden;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.recipe-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
     transition: transform 0.3s ease;
 }
 
+.recipe-card:hover::before {
+    transform: scaleX(1);
+}
+
 .recipe-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
 
 .recipe-image {
     width: 100%;
-    height: 200px;
+    height: 250px;
     object-fit: cover;
+    transition: var(--transition);
+}
+
+.recipe-card:hover .recipe-image {
+    transform: scale(1.05);
 }
 
 .recipe-card h3 {
-    color: #2c3e50;
-    margin: 1rem;
-    font-size: 1.2rem;
+    color: var(--text-color);
+    margin: 1.5rem 1.5rem 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .recipe-card p {
-    margin: 0 1rem 1rem;
-    color: #666;
+    color: var(--text-color);
+    opacity: 0.9;
+    margin: 0 1.5rem 1.5rem;
+    line-height: 1.6;
 }
 
 .recipe-btn {
-    display: block;
-    width: calc(100% - 2rem);
-    margin: 0 1rem 1rem;
-    padding: 0.8rem;
-    background: #4CAF50;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 3rem);
+    margin: 0 1.5rem 1.5rem;
+    padding: 1rem;
+    background: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: var(--transition);
 }
 
 .recipe-btn:hover {
-    background: #45a049;
+    background: var(--secondary-color);
+    transform: translateY(-2px);
 }
 
 /* Seção de Exercícios */
@@ -305,46 +659,93 @@ h2 {
     gap: 1.5rem;
 }
 
+/* Exercise Cards (Cardio, Força, HIIT) */
 .exercise-card {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+}
+
+.exercise-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
     transition: transform 0.3s ease;
 }
 
+.exercise-card:hover::before {
+    transform: scaleX(1);
+}
+
 .exercise-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
 
 .exercise-card i {
-    font-size: 2rem;
-    color: #4CAF50;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.exercise-card:hover i {
+    transform: scale(1.1);
 }
 
 .exercise-card h3 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .exercise-card ul {
     list-style: none;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     text-align: left;
+    width: 100%;
 }
 
 .exercise-card li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding-left: 1.75rem;
     position: relative;
+    color: var(--text-color);
+    opacity: 0.9;
 }
 
-.exercise-card li:before {
+.exercise-card li::before {
     content: "→";
-    color: #4CAF50;
+    color: var(--primary-color);
     position: absolute;
     left: 0;
+    font-size: 1.1rem;
+}
+
+.exercise-tip {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-style: italic;
+    width: 100%;
 }
 
 /* Seção de Motivação */
@@ -354,27 +755,89 @@ h2 {
     gap: 1.5rem;
 }
 
+/* Motivation Cards (Estabeleça Metas, Mantenha um Diário, Busque Apoio) */
 .motivation-card {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+}
+
+.motivation-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary-color);
+    transform: scaleX(0);
     transition: transform 0.3s ease;
 }
 
+.motivation-card:hover::before {
+    transform: scaleX(1);
+}
+
 .motivation-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
 
 .motivation-card i {
-    font-size: 2rem;
-    color: #4CAF50;
-    margin-bottom: 1rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+}
+
+.motivation-card:hover i {
+    transform: scale(1.1);
 }
 
 .motivation-card h3 {
-    color: #2c3e50;
+    color: var(--text-color);
     margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.motivation-card p {
+    color: var(--text-color);
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.motivation-tips {
+    list-style: none;
+    margin-top: 1rem;
+    text-align: left;
+    width: 100%;
+}
+
+.motivation-tips li {
+    margin-bottom: 0.75rem;
+    padding-left: 1.75rem;
+    position: relative;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.motivation-tips li::before {
+    content: "✓";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1.1rem;
 }
 
 /* Seção de Mitos e Verdades */
@@ -385,158 +848,156 @@ h2 {
 }
 
 .myth-card {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #4CAF50;
-    transition: transform 0.3s ease;
-}
-
-.myth-card:hover {
-    transform: translateY(-5px);
-}
-
-.myth-card h3 {
-    color: #2c3e50;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-
-.myth-card p {
-    color: #666;
-    line-height: 1.6;
-}
-
-/* Dicas de Nutrientes */
-.nutrient-tip {
-    margin-top: 1rem;
-    padding: 0.8rem;
-    background: #e8f5e9;
-    border-radius: 4px;
-    color: #2c3e50;
-    font-size: 0.9rem;
-    font-style: italic;
-}
-
-/* Dicas de Exercícios */
-.exercise-tip {
-    margin-top: 1rem;
-    padding: 0.8rem;
-    background: #e3f2fd;
-    border-radius: 4px;
-    color: #2c3e50;
-    font-size: 0.9rem;
-    font-style: italic;
-}
-
-/* Dicas de Motivação */
-.motivation-tips {
-    list-style: none;
-    margin-top: 1rem;
-    text-align: left;
-}
-
-.motivation-tips li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
-    position: relative;
-}
-
-.motivation-tips li:before {
-    content: "✓";
-    color: #4CAF50;
-    position: absolute;
-    left: 0;
-}
-
-/* Descrição das Receitas */
-.recipe-description {
-    color: #666;
-    margin-bottom: 1.5rem;
-    font-style: italic;
-    line-height: 1.6;
-}
-
-/* Melhorias nos Cards Existentes */
-.tip-card, .nutrient-card, .exercise-card, .motivation-card {
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     position: relative;
     overflow: hidden;
 }
 
-.tip-card:after, .nutrient-card:after, .exercise-card:after, .motivation-card:after {
+.myth-card::before {
     content: '';
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
-    width: 100%;
-    height: 3px;
-    background: #4CAF50;
-    transform: scaleX(0);
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color);
+    transform: scaleY(0);
     transition: transform 0.3s ease;
 }
 
-.tip-card:hover:after, .nutrient-card:hover:after, .exercise-card:hover:after, .motivation-card:hover:after {
-    transform: scaleX(1);
+.myth-card:hover::before {
+    transform: scaleY(1);
 }
 
-/* Melhorias no Modal */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
+.myth-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
 }
 
-.modal-content {
-    position: relative;
-    background: white;
-    margin: 5% auto;
-    padding: 2rem;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    max-height: 80vh;
-    overflow-y: auto;
+.myth-card h3 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.close-btn {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: #666;
+.myth-card h3::before {
+    content: "❌";
+    font-size: 1.1rem;
 }
 
-.close-btn:hover {
-    color: #333;
-}
-
-.modal-content h2 {
-    color: #4CAF50;
-    border-bottom: 2px solid #4CAF50;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.modal-content h3 {
-    color: #2c3e50;
-    margin: 1.5rem 0 1rem;
-}
-
-.modal-content ul {
-    margin-left: 1.5rem;
-    margin-bottom: 1.5rem;
-}
-
-.modal-content li {
-    margin-bottom: 0.8rem;
+.myth-card p {
+    color: var(--text-color);
+    opacity: 0.9;
     line-height: 1.6;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.myth-card p::before {
+    content: "✓";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1.1rem;
+}
+
+/* Dark Mode Adjustments for Myths */
+.dark-mode .myth-card {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .myth-card h3,
+.dark-mode .myth-card p {
+    color: var(--text-color);
+}
+
+.dark-mode .myth-card p {
+    opacity: 0.8;
+}
+
+/* Responsive Adjustments for Myths */
+@media (max-width: 768px) {
+    .myth-card {
+        padding: 1.5rem;
+    }
+
+    .myth-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .myth-card p {
+        font-size: 0.95rem;
+    }
+}
+
+/* Dark Mode Adjustments */
+.dark-mode .nutrient-tip,
+.dark-mode .exercise-tip {
+    background: var(--secondary-color);
+}
+
+.dark-mode .recipe-btn {
+    background: var(--secondary-color);
+}
+
+.dark-mode .recipe-btn:hover {
+    background: var(--primary-color);
+}
+
+/* High Contrast Mode */
+.high-contrast {
+    --primary-color: #0000ff;
+    --secondary-color: #0000aa;
+    --text-color: #000000;
+    --background-color: #ffffff;
+    --card-background: #ffffff;
+}
+
+.high-contrast .card,
+.high-contrast .key-point,
+.high-contrast .tip-card {
+    border: 2px solid #000000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .nutrient-card,
+    .exercise-card,
+    .motivation-card {
+        padding: 1.5rem;
+    }
+
+    .recipe-image {
+        height: 200px;
+    }
+
+    .nutrient-card i,
+    .exercise-card i,
+    .motivation-card i {
+        font-size: 2rem;
+    }
+
+    .nutrient-card h3,
+    .exercise-card h3,
+    .motivation-card h3,
+    .recipe-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .nutrient-tip,
+    .exercise-tip {
+        font-size: 0.85rem;
+        padding: 0.75rem;
+    }
 }
 
 /* Footer */
@@ -611,5 +1072,328 @@ footer {
         margin: 5% auto;
         width: 95%;
         max-height: 90vh;
+    }
+}
+
+/* Image Styles */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.image-grid-item {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.image-grid-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.image-grid-item:hover img {
+    transform: scale(1.05);
+}
+
+.image-grid-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.image-grid-item:hover .image-grid-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-image {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 2rem;
+}
+
+.section-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.section-image:hover img {
+    transform: scale(1.05);
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .image-grid-caption {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .image-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .image-grid-item img {
+        height: 200px;
+    }
+
+    .section-image img {
+        height: 300px;
+    }
+
+    .image-grid-caption {
+        opacity: 1;
+        transform: translateY(0);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    }
+}
+
+/* Recipe Images */
+.recipe-image {
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.recipe-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.recipe-card:hover .recipe-image img {
+    transform: scale(1.05);
+}
+
+/* Hero Image */
+.hero-image {
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    opacity: 0.1;
+    transition: var(--transition);
+}
+
+/* Image Grid */
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.image-grid-item {
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    aspect-ratio: 16/9;
+}
+
+.image-grid-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.image-grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.image-grid-item:hover img {
+    transform: scale(1.05);
+}
+
+.image-grid-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.image-grid-item:hover .image-grid-caption {
+    opacity: 1;
+}
+
+/* Dark Mode Adjustments for Images */
+.dark-mode .image-grid-caption {
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+}
+
+/* Responsive Image Adjustments */
+@media (max-width: 768px) {
+    .section-image img {
+        height: 200px;
+    }
+
+    .recipe-image img {
+        height: 200px;
+    }
+
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--card-background);
+    margin: 5% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    transition: var(--transition);
+}
+
+.close-btn:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+#recipeContent {
+    margin-top: 1rem;
+}
+
+#recipeContent h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+#recipeContent h3 {
+    color: var(--text-color);
+    margin: 1.5rem 0 1rem;
+    font-size: 1.4rem;
+}
+
+#recipeContent ul {
+    list-style: none;
+    padding-left: 1.5rem;
+}
+
+#recipeContent li {
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+#recipeContent li::before {
+    content: "•";
+    color: var(--primary-color);
+    position: absolute;
+    left: 0;
+    font-size: 1.2rem;
+}
+
+#recipeContent p {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.recipe-description {
+    font-style: italic;
+    color: var(--text-color);
+    opacity: 0.9;
+    margin-bottom: 2rem;
+}
+
+/* Dark Mode Adjustments */
+.dark-mode .modal-content {
+    background-color: var(--card-background);
+}
+
+.dark-mode .close-btn {
+    color: var(--text-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .modal-content {
+        margin: 10% auto;
+        width: 95%;
+        padding: 1.5rem;
+    }
+
+    #recipeContent h2 {
+        font-size: 1.5rem;
+    }
+
+    #recipeContent h3 {
+        font-size: 1.2rem;
     }
 } 
